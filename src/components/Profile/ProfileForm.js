@@ -1,22 +1,3 @@
-/*
-import classes from './ProfileForm.module.css';
-
-const ProfileForm = () => {
-  return (
-    <form className={classes.form}>
-      <div className={classes.control}>
-        <label htmlFor='new-password'>New Password</label>
-        <input type='password' id='new-password' />
-      </div>
-      <div className={classes.action}>
-        <button>Change Password</button>
-      </div>
-    </form>
-  );
-}
-
-export default ProfileForm;
-*/
 
 import React, { useState, useContext } from 'react';
 import AuthContext from '../../store/AuthContext';
@@ -24,7 +5,7 @@ import classes from './ProfileForm.module.css';
 
 const ProfileForm = () => {
   const [newPassword, setNewPassword] = useState('');
-  const authCtx = useContext(AuthContext); // Access the token from context
+  const authCtx = useContext(AuthContext); 
 
   const handlePasswordChange = (event) => {
     event.preventDefault();
@@ -34,11 +15,11 @@ const ProfileForm = () => {
       return;
     }
 
-    // Make the POST request to Firebase to change the password
+    
     fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCeZKmUH69ry139zSe8-iGfCEjTC1813o4', {
       method: 'POST',
       body: JSON.stringify({
-        idToken: authCtx.token, // Use the token from context
+        idToken: authCtx.token, 
         password: newPassword,
         returnSecureToken: true,
       }),
@@ -56,14 +37,14 @@ const ProfileForm = () => {
       })
       .then((data) => {
         alert('Password changed successfully!');
-        setNewPassword(''); // Clear the input field
+        setNewPassword('');
 
-        // Try to log in with the old token to verify that the token is invalidated
+  
         fetch('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCeZKmUH69ry139zSe8-iGfCEjTC1813o4', {
           method: 'POST',
           body: JSON.stringify({
-            email: 'user@example.com', // Use the email associated with the old token
-            password: 'oldPassword', // Use the old password (which should no longer work)
+            email: 'user@example.com',
+            password: 'oldPassword', 
             returnSecureToken: true,
           }),
           headers: {
@@ -77,11 +58,11 @@ const ProfileForm = () => {
             return res.json();
           })
           .catch((error) => {
-            alert('Old token is invalidated: ' + error.message); // This will confirm that the old token is no longer valid
+            alert('Old token is invalidated: ' + error.message); 
           });
       })
       .catch((error) => {
-        alert('Error: ' + error.message); // Handle any errors
+        alert('Error: ' + error.message);
       });
   };
 
